@@ -1,4 +1,5 @@
 import tkinter as tk
+import database as db
 from tkinter import messagebox
 
 class LoginPage(tk.Frame):
@@ -46,17 +47,21 @@ class RegisterPage(tk.Frame):
         self.create_widgets(switch_to_login, "Register")
 
     def create_widgets(self, switch_to_login, title):
+        self.USERNAME = tk.StringVar()
+        self.PASSWORD = tk.StringVar()
+        self.EMAIL = tk.StringVar()
+
         title_label = tk.Label(self, text=title, font=("Helvetica", 16))
         title_label.grid(row=0, column=0, columnspan=2, pady=(10, 20))
 
         self.email_label = tk.Label(self, text="Email:")
-        self.email_entry = tk.Entry(self)
+        self.email_entry = tk.Entry(self, textvariable=self.EMAIL)
 
         self.username_label = tk.Label(self, text="Username:")
-        self.username_entry = tk.Entry(self)
+        self.username_entry = tk.Entry(self, textvariable=self.USERNAME)
 
         self.password_label = tk.Label(self, text="Password:")
-        self.password_entry = tk.Entry(self, show="*")
+        self.password_entry = tk.Entry(self, show="*", textvariable=self.PASSWORD)
 
         self.register_button = tk.Button(self, text="Register", command=self.register)
         self.login_button = tk.Button(self, text="Login", command=switch_to_login)
@@ -74,8 +79,7 @@ class RegisterPage(tk.Frame):
         self.login_button.grid(row=4, column=1, pady=10, padx=(5, 20))
 
     def register(self):
-        # Add your registration logic here
-        messagebox.showinfo("Register", "Register button clicked!")
+        db.create_account(self.USERNAME.get(), self.PASSWORD.get(), self.EMAIL.get())
 
 
 class MainApplication(tk.Tk):
