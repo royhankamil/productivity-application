@@ -24,12 +24,16 @@ def already_exist(username, password):
             else:
                 return (True, False)
     
-    return False, False
+    return (False, False)
 
-def Check_Login(username, password):
-    name_val, pass_val = already_exist()
+def Check_Account(username, password):
+    name_val, pass_val = already_exist(username, password)
     if name_val and pass_val:
         print("boleh login")
+    elif name_val:
+        print("password anda salah cek lagi ya")
+    else:
+        print("username tidak ditemukan")
         
 
 def create_account(username, password, email):
@@ -58,4 +62,5 @@ def update_account(column, new_value, id):
 
 def delete_account():
     pass
-# update_account('password', '12341234', 1)
+
+Check_Account("aroyka", "12341234")
