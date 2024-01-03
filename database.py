@@ -1,4 +1,5 @@
 import mysql.connector
+from tkinter import messagebox
 
 db = mysql.connector.connect(
     host='localhost',
@@ -20,20 +21,25 @@ def already_exist(username, password):
     for user in users:
         if user[1] == username:
             if user[2] == password:
-                return (True, True)
+                return (True, True, user[0])
             else:
-                return (True, False)
+                return (True, False, None)
     
-    return (False, False)
+    return (False, False, None)
 
 def Check_Account(username, password):
-    name_val, pass_val = already_exist(username, password)
+    name_val, pass_val, this_id = already_exist(username, password)
     if name_val and pass_val:
-        print("boleh login")
+        messagebox.showinfo("Login", "Login Successfully")
+        print("Login....")
     elif name_val:
-        print("password anda salah cek lagi ya")
+        messagebox.showinfo("Login", "your password is wrong, check again")
+        print("your password is wrong, check again")
     else:
-        print("username tidak ditemukan")
+        messagebox.showinfo("Login", "username not found")
+        print("username not found")
+    
+    return this_id
         
 
 def create_account(username, password, email):
@@ -47,6 +53,7 @@ def create_account(username, password, email):
     cursor.execute(query, values)
     db.commit()
 
+    messagebox.showinfo("Login", "created account successfully")
     print('created account successfully')
 
 
@@ -58,9 +65,10 @@ def update_account(column, new_value, id):
 
     db.commit()
 
+    messagebox.showinfo("Login", "update account successfully")
     print('update account successfully')
 
 def delete_account():
     pass
 
-Check_Account("aroyka", "12341234")
+# Check_Account("aroyka", "12341234")
