@@ -39,7 +39,8 @@ class LoginPage(tk.Frame):
     def login(self):
         # Add your login logic here
         # messagebox.showinfo("Login", "Login button clicked!")
-        Id = db.Check_Account(self.USERNAME.get(), self.PASSWORD.get())
+        form = db.Form_Proccess()
+        Id = form.Check_Account(self.USERNAME.get(), self.PASSWORD.get())
 
         if Id:
             print(Id)
@@ -86,7 +87,8 @@ class RegisterPage(tk.Frame):
         self.login_button.grid(row=4, column=1, pady=10, padx=(5, 20))
 
     def register(self):
-        db.create_account(self.USERNAME.get(), self.PASSWORD.get(), self.EMAIL.get())
+        form = db.Form_Proccess()
+        form.create_account(self.USERNAME.get(), self.PASSWORD.get(), self.EMAIL.get())
 
  
 class MainApplication(tk.Tk):
